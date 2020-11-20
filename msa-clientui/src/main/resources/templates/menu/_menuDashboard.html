@@ -1,0 +1,38 @@
+<div class="container" th:fragment="menuDashboard" lang="en" xmlns:th="http://www.thymeleaf.org">
+	<h3>Menu</h3>
+	<nav>
+		<ul class="nav flex-column">
+					
+			<li class="nav-item" 
+				th:if="${#lists.contains(userLoggedAuthorities, 'ROLE_ADMIN')}" >
+				<hr>
+				<a class="nav-link" href="#">Add new staff</a>
+				<a class="nav-link" href="#">Edit staff</a>
+			</li>		
+		  			
+			<li class="nav-item" 
+				th:if="${#lists.contains(userLoggedAuthorities, 'ROLE_STAFF')}" >
+				<hr>
+				<a class="nav-link" href="#">Add new customer</a>
+				<a class="nav-link" href="#">Edit customer</a>
+			</li>
+					
+			<li class="nav-item" 
+				th:if="${#lists.contains(userLoggedAuthorities, 'ROLE_CUSTOMER')}" >
+				<hr>
+				<a class="nav-link" href="#">Edit profile</a>
+				<a class="nav-link" href="#">Change password</a>
+				<a class="nav-link" href="#">View list rent films</a>
+				<a class="nav-link" href="#">View list films</a>		
+			</li>
+				
+			<li class="nav-item active">
+				<hr>
+				<a class="nav-link" th:href="@{/public/logout}"> Logout </a>
+			</li>
+
+		</ul>
+	</nav>
+</div>
+
+
