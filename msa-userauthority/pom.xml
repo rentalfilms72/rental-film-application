@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.rentalfilm</groupId>
-	<artifactId>msa-address</artifactId>
+	<artifactId>msa-userauthority</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>msa-address</name>
-	<description> Micro service to manage the address </description>
+	<name>msa-userauthority</name>
+	<description> Micro service to manage the user authority </description>
 
 	<properties>
 		<java.version>1.8</java.version>
