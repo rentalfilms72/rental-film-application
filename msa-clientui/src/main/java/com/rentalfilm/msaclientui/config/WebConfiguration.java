@@ -1,5 +1,6 @@
 package com.rentalfilm.msaclientui.config;
 
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +17,8 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 @EnableWebMvc
-public class WebMvcConfig implements WebMvcConfigurer {    
-    
+public class WebConfiguration implements WebMvcConfigurer {
+ 
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -81,7 +82,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "classpath:/resources/static/img",
                         "classpath:/resources/static/css");
     }
-    
-    
-    
+ 
 }

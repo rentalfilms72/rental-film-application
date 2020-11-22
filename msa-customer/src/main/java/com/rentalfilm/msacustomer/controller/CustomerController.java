@@ -24,7 +24,7 @@ public class CustomerController {
 	CustomerRepository customerRepository;
 	
 	@GetMapping("/customer/get-by-id/{customerId}")
-	public ResponseEntity<Customer>  getCustomer(@PathVariable(name = "customerId") String customerId) {
+	public ResponseEntity<Customer>  getOneCustomer(@PathVariable(name = "customerId") String customerId) {
 		
 		Optional<Customer> customerFound = customerRepository.findById(customerId);
 		if(!customerFound.isPresent())
