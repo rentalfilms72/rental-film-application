@@ -1,7 +1,6 @@
 package com.rentalfilm.msaclientui.bean;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
 import com.rentalfilm.msaclientui.bean.primarykey.FilmCategoryPK;
 
@@ -10,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+
+import javax.persistence.Embedded;
 
 
 @Data @AllArgsConstructor @NoArgsConstructor

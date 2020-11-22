@@ -1,5 +1,6 @@
 package com.rentalfilm.msaclientui.bean.primarykey;
 
+
 import javax.persistence.Embeddable;
 
 import lombok.AllArgsConstructor;

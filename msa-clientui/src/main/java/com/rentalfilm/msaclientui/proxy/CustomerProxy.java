@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.rentalfilm.msaclientui.bean.CustomerBean;
 
 @FeignClient(
-		name = "msa-zuul",
+		name = "edge-zuul",
 		contextId = "customerContextId"
 		//configuration = OrderProxyConfig.class
 		)
