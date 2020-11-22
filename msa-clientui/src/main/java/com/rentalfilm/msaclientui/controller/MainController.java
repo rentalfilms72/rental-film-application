@@ -1,8 +1,6 @@
 package com.rentalfilm.msaclientui.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 
 import org.springframework.stereotype.Controller;
