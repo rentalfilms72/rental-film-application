@@ -11,12 +11,12 @@ import feign.auth.BasicAuthRequestInterceptor;
  *Configuration of Feign
  *Feign use the Bean to authenticate 
  */
-@Configuration
+//@Configuration
 public class FeignConfig {
 	
 	@Bean
 	public BasicAuthRequestInterceptor mBasicAuthRequestInterceptor() {
-		return new BasicAuthRequestInterceptor("user", "pwd");
+		return new BasicAuthRequestInterceptor("use", "pwd");
 	}
 
 }
