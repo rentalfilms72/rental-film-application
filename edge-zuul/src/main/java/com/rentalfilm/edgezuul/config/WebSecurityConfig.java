@@ -41,21 +41,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.csrf().disable();
-		http.authorizeRequests()
-			.antMatchers(// Pages do not require login
-					"/", 
-					"/home",
-	                "/*.html",
-	                "/**/favicon.ico",
-	                "/**/*.html",
-	                "/**",
-	                "/**/*.css",
-	                "/**/*.js"
-					).permitAll()
-		 	.antMatchers(
-		 			"/public/**",
-		 			"errors/**"
-		 			).permitAll();
+//		http.authorizeRequests()
+//			.antMatchers(// Pages do not require login
+//					"/", 
+//					"/home",
+//	                "/*.html",
+//	                "/**/favicon.ico",
+//	                "/**/*.html",
+//	                "/**",
+//	                "/**/*.css",
+//	                "/**/*.js"
+//					).permitAll()
+//		 	.antMatchers(
+//		 			"/public/**",
+//		 			"errors/**"
+//		 			).permitAll();
 		
 		http.authorizeRequests()
 			// All the Url require an authentication of the user
