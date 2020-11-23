@@ -17,11 +17,11 @@ import com.rentalfilm.msaclientui.bean.CustomerBean;
 @RibbonClient(name = "msa-customer")
 public interface CustomerProxy {
 	
-	@GetMapping("/msa-customer/customer/get-by-id/{customerId}")
+	@GetMapping("/customer/get-by-id/{customerId}")
 	public CustomerBean  getOneCustomer(@PathVariable(name = "customerId") String customerId);
 	
 	
-	@GetMapping("/msa-customer/customer/get-all")
+	@GetMapping("/customer/get-all")
 	public List<CustomerBean>  getAllCustomer();
 
 }

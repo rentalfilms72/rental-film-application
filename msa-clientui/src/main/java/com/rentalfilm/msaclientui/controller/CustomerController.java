@@ -16,7 +16,7 @@ public class CustomerController {
 	CustomerProxy customerProxy;
 	
 	
-	@GetMapping("test-customer")
+	@GetMapping("/test-customer")
 	public List<CustomerBean> testCustomer(){
 		
 		return customerProxy.getAllCustomer();

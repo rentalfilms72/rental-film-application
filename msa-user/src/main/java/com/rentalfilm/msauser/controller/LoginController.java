@@ -1,4 +1,4 @@
-package com.rentalfilm.msaclientui.controller;
+package com.rentalfilm.msauser.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -16,25 +16,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.rentalfilm.msaclientui.bean.UserBean;
-import com.rentalfilm.msaclientui.payload.request.UserLoginRequest;
-import com.rentalfilm.msaclientui.proxy.UserProxy;
+
 
 
 
 @Controller
-@RequestMapping("/clientui/login")
+//@RequestMapping("/public/login")
 public class LoginController {
 
-	@Autowired
-	private UserProxy userProxy;
+//	@Autowired
+//	private UserProxy userProxy;
 
 	/**
 	 * Show the login page
 	 * @param model
 	 * @return
 	 */
-	@GetMapping
+	@GetMapping("/user/public/login")
 	public String showLogin(Model model) {
 		return "login-page";
 	}
@@ -46,16 +44,15 @@ public class LoginController {
 	 * @param model
 	 * @param userLoginRequest
 	 */
-	@PostMapping
-	public void userAuthentication(
-			Principal principal,
-			Model model, 
-			@ModelAttribute("userLoginRequest")  UserLoginRequest userLoginRequest) {
-
-		List<String> roleNames = new ArrayList<>();
-
-		UserBean userFound = userProxy.getUserByUsername(userLoginRequest.getUsername());
-		
+//	@PostMapping
+//	public void userAuthentication(
+//			Principal principal,
+//			Model model, 
+//			@ModelAttribute("userLoginRequest")  UserLoginRequest userLoginRequest) {
+//
+//		List<String> roleNames = new ArrayList<>();
+//
+//		Optional<UserBean> userFound = userProxy.findByUsername(userLoginRequest.getUsername());
 //		if(userFound.isPresent())
 //			roleNames = userFound.get().getRoles()
 //			.stream()
@@ -69,6 +66,6 @@ public class LoginController {
 //			e.printStackTrace();
 //			model.addAttribute("errorMessageLoggin", "Error " + e.getMessage());
 //		}
-	}
+//	}
 
 }

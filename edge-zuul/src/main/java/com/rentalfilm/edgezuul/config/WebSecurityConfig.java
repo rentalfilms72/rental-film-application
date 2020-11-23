@@ -56,6 +56,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //		 			"/public/**",
 //		 			"errors/**"
 //		 			).permitAll();
+		http.authorizeRequests()
+			.antMatchers("/public/**",
+						"/clientui/**")
+			.permitAll();
 		
 		http.authorizeRequests()
 			// All the Url require an authentication of the user
@@ -69,10 +73,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        
 	        .and()
 	        .formLogin()
-			.loginProcessingUrl("/public/login") // Submit URL 
-			.loginPage("/public/login")
+			.loginProcessingUrl("/clientui/login") // Submit URL 
+			.loginPage("/clientui/login")
 			.successHandler(successHandler)// On login success we open the custom Dashboard for any USER ROLE
-			.failureUrl("/public/login?error=true")// If the login process return error
+			.failureUrl("/clientui/login?error=true")// If the login process return error
 			.usernameParameter("username")
 			.passwordParameter("password")
 	        
@@ -80,8 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        .logout()
 	        .invalidateHttpSession(true)
 			.clearAuthentication(true)
-			.logoutRequestMatcher(new AntPathRequestMatcher("/public/logout"))
-			.logoutUrl("/public/logout")
+			.logoutRequestMatcher(new AntPathRequestMatcher("/clientui/logout"))
+			.logoutUrl("/clientui/logout")
 			.logoutSuccessUrl("/")
 		
 	        .and()
