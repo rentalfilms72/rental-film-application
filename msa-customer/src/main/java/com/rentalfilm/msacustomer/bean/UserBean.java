@@ -1,4 +1,4 @@
-package com.rentalfilm.msaclientui.bean;
+package com.rentalfilm.msacustomer.bean;
 
 import java.util.Date;
 

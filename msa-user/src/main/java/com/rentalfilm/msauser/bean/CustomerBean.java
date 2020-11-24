@@ -18,12 +18,16 @@ public class CustomerBean implements Serializable {
 	private String customerId;
 	
     private String email;
+    
+    private String username;
+    
+    private String password;
 	
 	private String firstName;
 
 	private String lastName;
 
-	private boolean active;
+	private boolean enabed;
 	
 	private Date createDate;
 	

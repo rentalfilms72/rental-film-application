@@ -1,6 +1,8 @@
 package com.rentalfilm.msaclientui.proxy;
 
 
+import java.util.List;
+
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +27,8 @@ public interface UserProxy {
 	
 	@GetMapping("/user/get-user-by-email/{email}")
 	public UserBean getUserByEmail(@PathVariable("email") String email);
+	
+	@GetMapping("/user/get-all")
+	public List<UserBean> getAllUser();
 
 }

@@ -40,6 +40,16 @@ public class Customer implements Serializable {
     private String email;
 	
 	@NotBlank
+	@Size(min=4, max=16)
+    @Column(name = "USERNAME", length = 16, unique=true, nullable = false)
+    private String username;
+    
+    @NotBlank
+	@Size(min=6, max=128)
+    @Column(name = "ENCRYPTED_PASSWORD", length = 128, nullable = false)
+    private String password;
+	
+	@NotBlank
 	@Size(min=1, max=45)
 	@Column(name="FIRST_NAME", nullable=false, columnDefinition="VARCHAR(45)")
 	private String firstName;
@@ -50,7 +60,7 @@ public class Customer implements Serializable {
 	private String lastName;
 
 	@Column(name="ACTIVE", columnDefinition="TINYINT(1)")
-	private boolean active;
+	private boolean enabled = false;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CREATE_DATE", 

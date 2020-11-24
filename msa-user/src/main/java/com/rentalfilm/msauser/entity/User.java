@@ -27,6 +27,13 @@ public class User {
     @Column(name = "USER_ID", length = 10, nullable = false)
     private String userId;
     
+    @NaturalId(mutable=true)
+	@Email
+	@NotBlank
+	@Size(min=4, max=128)
+    @Column(name = "EMAIL", length = 128, nullable = false)
+    private String email;
+    
     @NotBlank
 	@Size(min=4, max=16)
     @Column(name = "USERNAME", length = 16, unique=true, nullable = false)
@@ -35,18 +42,11 @@ public class User {
     @NotBlank
 	@Size(min=6, max=128)
     @Column(name = "ENCRYPTED_PASSWORD", length = 128, nullable = false)
-    private String encrytedPassword;
-    
-    @NaturalId(mutable=true)
-	@Email
-	@NotBlank
-	@Size(min=4, max=128)
-    @Column(name = "EMAIL", length = 128, nullable = false)
-    private String email;
+    private String password;
   
 	@NotNull
     @Column(name = "IS_ENABLED", length = 1, nullable = false)
-    private boolean enabled;
+    private boolean enabled = false;
 	
 	@Column(name="CREATED_AT", 
 			updatable=false, insertable=false, 
@@ -58,7 +58,10 @@ public class User {
 			columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private Date updatedAt;
 	
-	
+	// The auhorities of user is a string 
+	// In case there many authority, each are separte with ;
+	@Column(name = "AUTHORIRY")
+	private String authority;
 	
 	@Column(name = "PICTURE_ID")
 	private Long pictureId;

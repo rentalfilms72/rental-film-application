@@ -58,7 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //		 			).permitAll();
 		http.authorizeRequests()
 			.antMatchers("/public/**",
-						"/clientui/**")
+						"/clientui/**",
+						"/test-customer",
+						"/**")
 			.permitAll();
 		
 		http.authorizeRequests()
