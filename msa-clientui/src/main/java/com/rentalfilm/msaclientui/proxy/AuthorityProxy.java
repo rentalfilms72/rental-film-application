@@ -4,7 +4,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(
-		name = "msa-zuul",
+		name = "edge-zuul",
 		contextId = "authorityContextId"
 		//configuration = <classNane>ProxyConfig.class
 		)

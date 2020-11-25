@@ -41,7 +41,7 @@ public class User {
     
     @NotBlank
 	@Size(min=6, max=128)
-    @Column(name = "ENCRYPTED_PASSWORD", length = 128, nullable = false)
+    @Column(name = "PASSWORD", length = 128, nullable = false)
     private String password;
   
 	@NotNull
@@ -60,8 +60,9 @@ public class User {
 	
 	// The auhorities of user is a string 
 	// In case there many authority, each are separte with ;
-	@Column(name = "AUTHORIRY")
-	private String authority;
+//	@NotBlank
+//	@Column(name = "AUTHORIRY")
+//	private String authorities;
 	
 	@Column(name = "PICTURE_ID")
 	private Long pictureId;

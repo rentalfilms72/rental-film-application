@@ -26,6 +26,7 @@ public class UserBean {
 	private Date updatedAt;
 	
 	
+	
 	private String authority;
 	
 	private Long pictureId;

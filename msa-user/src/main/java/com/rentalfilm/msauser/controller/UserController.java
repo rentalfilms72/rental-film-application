@@ -4,10 +4,11 @@ package com.rentalfilm.msauser.controller;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentalfilm.msauser.entity.User;
-import com.rentalfilm.msauser.payload.request.RegisterUserRequest;
+import com.rentalfilm.msauser.exception.UserListEmptyException;
+import com.rentalfilm.msauser.exception.UserNotFoundException;
+import com.rentalfilm.msauser.payload.request.CreateUserAuthorityRequest;
+import com.rentalfilm.msauser.payload.request.CreateUserRequest;
+import com.rentalfilm.msauser.proxy.UserAuthorityProxy;
 import com.rentalfilm.msauser.repository.UserRepository;
 
 
@@ -26,22 +31,67 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	UserAuthorityProxy userAuthorityProxy;
+	
+	@Transactional
 	@PostMapping("/user/create")
-	public ResponseEntity<User>  createUser( 
-			@RequestBody @Validated RegisterUserRequest registerUserRequest) {
+	public ResponseEntity<User>  createUser( @RequestBody CreateUserRequest createUserRequest) {
 		
+		// verify if the user already exist
+		Optional<User> userFound = userRepository.findById(createUserRequest.getUserId());
 		
 		User newUser = new User();
-		newUser.setUserId(registerUserRequest.getUserId());
-		newUser.setUsername(registerUserRequest.getUsername());
-		newUser.setPassword(registerUserRequest.getPassword());
-		newUser.setEmail(registerUserRequest.getEmail());
+		newUser.setUserId(createUserRequest.getUserId());
+		newUser.setUsername(createUserRequest.getUsername());
+		newUser.setPassword(createUserRequest.getPassword());
+		newUser.setEmail(createUserRequest.getEmail());
 		
-		newUser.setPictureId(registerUserRequest.getPictureId());
-				
+		newUser.setPictureId(createUserRequest.getPictureId());
+		//newUser.setAuthorities(createUserRequest.getAuthorities());	
+		
+		// Save the User on DATA BASE
+		if(!userFound.isPresent())
+			newUser = userRepository.save(newUser);
+		
+		// Call the msa-userauthority
+		CreateUserAuthorityRequest  createUserAuthorityRequest = new CreateUserAuthorityRequest();
+		createUserAuthorityRequest.setUserId(createUserRequest.getUserId());
+		createUserAuthorityRequest.setAuthorityname(createUserRequest.getAuthorityName());
+		userAuthorityProxy.createUserAuthority(createUserAuthorityRequest);
 		
 		
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/user/user-exist/{userId}")
+	public boolean userExist(@PathVariable("userId") String userId) {
+		
+		Optional<User> userFound = userRepository.findById(userId);
+		if(!userFound.isPresent()) 
+			return false;
+		
+		return true;
+	}
+	
+	@GetMapping("/user/username-exist/{username}")
+	public boolean usernameExist(@PathVariable("username") String username) {
+		
+		Optional<User> userFound = userRepository.findByUsername(username);
+		if(!userFound.isPresent()) 
+			return false;
+		
+		return true;
+	}
+	
+	@GetMapping("/user/email-exist/{email}")
+	public boolean emailExist(@PathVariable("email") String email) {
+		
+		Optional<User> userFound = userRepository.findByEmail(email);
+		if(!userFound.isPresent()) 
+			return false;
+		
+		return true;
 	}
 	
 	
@@ -49,8 +99,8 @@ public class UserController {
 	public ResponseEntity<User> getUserById(@PathVariable("userId") String userId) {
 		
 		Optional<User> userFound = userRepository.findById(userId);
-		if(!userFound.isPresent()) return null;
-		//throw new UserNotFoundException("User with id '" + userId + "' do not exist.");
+		if(!userFound.isPresent()) 
+			throw new UserNotFoundException("User with id '" + userId + "' do not exist.");
 		
 		return new ResponseEntity<User>(userFound.get(), HttpStatus.CREATED);
 	}
@@ -59,8 +109,8 @@ public class UserController {
 	public ResponseEntity<User> getUserByUsername(@PathVariable("username") String username) {
 		
 		Optional<User> userFound = userRepository.findByUsername(username);
-		if(!userFound.isPresent()) return null;
-			//throw new UserNotFoundException("User with username '" + username + "' do not exist.");
+		if(!userFound.isPresent())
+			throw new UserNotFoundException("User with username '" + username + "' do not exist.");
 		
 		return new ResponseEntity<User>(userFound.get(), HttpStatus.CREATED);
 	}
@@ -69,8 +119,8 @@ public class UserController {
 	public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
 		
 		Optional<User> userFound = userRepository.findByEmail(email);
-		if(!userFound.isPresent())return null;
-		//throw new UserNotFoundException("User with email '" + email + "' do not exist.");
+		if(!userFound.isPresent()) 
+			throw new UserNotFoundException("User with email '" + email + "' do not exist.");
 		
 		return new ResponseEntity<User>(userFound.get(), HttpStatus.CREATED);
 	}
@@ -79,8 +129,8 @@ public class UserController {
 	public List<User> getAllUser() {
 		
 		List<User> userList = userRepository.findAll();
-		if(userList.isEmpty()) return null;
-		//throw new UserListEmptyException("User list is empty.");
+		if(userList.isEmpty())
+			throw new UserListEmptyException("User list is empty.");
 		
 		return userList;
 	}

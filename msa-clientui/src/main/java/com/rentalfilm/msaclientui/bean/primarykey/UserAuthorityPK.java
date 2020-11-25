@@ -1,6 +1,5 @@
 package com.rentalfilm.msaclientui.bean.primarykey;
 
-
 import javax.persistence.Embeddable;
 
 import lombok.AllArgsConstructor;
@@ -13,6 +12,6 @@ public class UserAuthorityPK {
 	
 	private String userId;
 	
-	private Long authorityId;
+	private String authorityName;
 
 }

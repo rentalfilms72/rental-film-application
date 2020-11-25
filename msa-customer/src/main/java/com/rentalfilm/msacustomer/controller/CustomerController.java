@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ import com.rentalfilm.msacustomer.entity.Customer;
 import com.rentalfilm.msacustomer.exception.CustomerListEmptyException;
 import com.rentalfilm.msacustomer.exception.CustomerNotFoundException;
 import com.rentalfilm.msacustomer.payload.request.RegisterCustomerRequest;
-import com.rentalfilm.msacustomer.payload.request.RegisterUserRequest;
+import com.rentalfilm.msacustomer.payload.request.CreateUserRequest;
 import com.rentalfilm.msacustomer.proxy.UserProxy;
 import com.rentalfilm.msacustomer.repository.CustomerRepository;
 import com.rentalfilm.msacustomer.service.CustomerService;
@@ -57,6 +58,7 @@ public class CustomerController {
 		}	
 	}
 
+	@Transactional
 	@PostMapping("/customer/register")
 	public ResponseEntity<Customer>  registerCustomer( 
 			@RequestBody @Validated RegisterCustomerRequest registerCustomerRequest) {
@@ -83,18 +85,22 @@ public class CustomerController {
 		newCustomer.setAddressId(registerCustomerRequest.getAddressId());
 		newCustomer.setStoreId(registerCustomerRequest.getStoreId());
 		
+		// Save the customer on DATA BASE
+		newCustomer = customerRepository.save(newCustomer);
+		
 		
 		
 		// Call the User microservice to create also a User
-		RegisterUserRequest registerUserRequest = new RegisterUserRequest();
-		registerUserRequest.setUserId(encryptedPassword);
-		registerUserRequest.setEmail(registerCustomerRequest.getEmail().trim());
-		registerUserRequest.setUsername(registerCustomerRequest.getUsername().trim());
-		registerUserRequest.setPassword(encryptedPassword);
-		registerUserRequest.setPictureId(registerCustomerRequest.getPictureId());
+		CreateUserRequest createUserRequest = new CreateUserRequest();
+		createUserRequest.setUserId(idGenerated);
+		createUserRequest.setEmail(registerCustomerRequest.getEmail().trim());
+		createUserRequest.setUsername(registerCustomerRequest.getUsername().trim());
+		createUserRequest.setPassword(encryptedPassword);
 		
-		userProxy.createUser(registerUserRequest);
-		// ....
+		createUserRequest.setPictureId(registerCustomerRequest.getPictureId());
+		createUserRequest.setAuthorityName("ROLE_CUSTOMER");
+		userProxy.createUser(createUserRequest);
+		
 
 		return new ResponseEntity<Customer>(newCustomer, HttpStatus.CREATED);
 	}

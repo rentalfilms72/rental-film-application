@@ -24,7 +24,7 @@ import com.rentalfilm.msaclientui.proxy.UserProxy;
 
 @Controller
 @RequestMapping("/clientui/login")
-public class LoginController {
+public class LoginClientController {
 
 	@Autowired
 	private UserProxy userProxy;

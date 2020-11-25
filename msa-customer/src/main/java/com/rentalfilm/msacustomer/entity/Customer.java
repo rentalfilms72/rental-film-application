@@ -28,7 +28,7 @@ public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Size(min=10, max=10)
+	@Size(min=7, max=10)
 	@Column(name="CUSTOMER_ID", columnDefinition="VARCHAR(10)")
 	private String customerId;
 	
@@ -59,7 +59,7 @@ public class Customer implements Serializable {
 	@Column(name="LAST_NAME", nullable=false, columnDefinition="VARCHAR(45)")
 	private String lastName;
 
-	@Column(name="ACTIVE", columnDefinition="TINYINT(1)")
+	@Column(name="IS_ENABLED", columnDefinition="TINYINT(1)")
 	private boolean enabled = false;
 	
 	@Temporal(TemporalType.TIMESTAMP)

@@ -3,19 +3,17 @@ package com.rentalfilm.msauser.payload.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class RegisterUserRequest {
+public class CreateUserRequest {
 	
 	@NotBlank
-	@Size(min=10, max=10)
+	@Size(min=7, max=10)
 	private String userId;
 	
 	@Email
@@ -28,13 +26,16 @@ public class RegisterUserRequest {
     private String username;
     
     @NotBlank
-	@Size(min=6, max=128)
+    @Size(min=6, max=128)
     private String password;
 	
 
 	
 	//bi-directional many-to-one association to Picture
 	private Long pictureId;
+	
+	@NotBlank
+	private String authorityName;
 
 
 }

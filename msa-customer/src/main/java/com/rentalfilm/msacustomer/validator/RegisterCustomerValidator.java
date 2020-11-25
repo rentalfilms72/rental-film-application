@@ -7,7 +7,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.rentalfilm.msacustomer.bean.UserBean;
 import com.rentalfilm.msacustomer.payload.request.RegisterCustomerRequest;
 import com.rentalfilm.msacustomer.proxy.UserProxy;
 
@@ -53,41 +52,21 @@ public class RegisterCustomerValidator implements Validator {
 			errors.rejectValue("email", "", "Email is not valid");
 			return;
 		}
-		UserBean userFound = new UserBean();
-		try { // To ignore the error
-			userFound = userProxy.getUserByUsername(registerCustomerRequest.getUsername());
-		}
-		catch (Exception ignore) {
-			// TODO: handle exception
+//		UserBean userFound = new UserBean();
+		boolean emailExit = false, usernameExist=false;
+		
+		usernameExist = userProxy.usernameExist(registerCustomerRequest.getUsername());
+		if(usernameExist) {
+			errors.rejectValue("username", "", "Username is not available");
+			return;
 		}
 		
-		if (userFound != null ) {
-			if (registerCustomerRequest.getCustomerId() == null) {
-				errors.rejectValue("username", "", "User name is not available");
-				return;
-			} else if (!registerCustomerRequest.getCustomerId().equals(userFound.getUserId())) {
-				errors.rejectValue("username", "", "User name is not available");
-				return;
-			}
+		emailExit = userProxy.emailExist(registerCustomerRequest.getEmail());
+		if(emailExit) {
+			errors.rejectValue("email", "", "Email is not available");
+			return;
 		}
-		
-		try { // To ignore the error
-		userFound = userProxy.getUserByEmail(registerCustomerRequest.getEmail());
-		}
-		catch (Exception ignore) {
-			// TODO: handle exception
-		}
-		
-		if (userFound != null ) {
-			if (registerCustomerRequest.getCustomerId() == null) {
-				errors.rejectValue("email", "", "Email is not available");
-				return;
-			} else if (!registerCustomerRequest.getCustomerId().equals(userFound.getUserId())) {
-				errors.rejectValue("email", "", "Email is not available");
-				return;
-			}
-		}
-		
+			
 		if(registerCustomerRequest.getPassword().length() < 6)
 			 errors.rejectValue("password", "", "Invalid password, minimum length:6");
 	

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  * @author Alberto
  *
  */
-@Component
+//@Component
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Override

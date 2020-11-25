@@ -7,21 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentalfilm.msaclientui.bean.CustomerBean;
-import com.rentalfilm.msaclientui.bean.UserBean;
 import com.rentalfilm.msaclientui.proxy.CustomerProxy;
-import com.rentalfilm.msaclientui.proxy.UserProxy;
 
 @RestController
-public class UserController {
+public class CustomerClientController {
 	
 	@Autowired
-	UserProxy userProxy;
+	CustomerProxy customerProxy;
 	
 	
-	@GetMapping("/test-user")
-	public List<UserBean> testCustomer(){
+	@GetMapping("/test-customer")
+	public List<CustomerBean> testCustomer(){
 		
-		return userProxy.getAllUser();
+		return customerProxy.getAllCustomer();
 	}
 	
 

@@ -1,17 +1,18 @@
-package com.rentalfilm.msauser.bean.primarykey;
+package com.rentalfilm.msauserauthority.payload.request;
 
-import javax.persistence.Embeddable;
+
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Embeddable
 @Data @AllArgsConstructor @NoArgsConstructor
-public class UserAuthorityPK {
-	
+public class CreateUserAuthorityRequest {
+
+	@NotBlank
 	private String userId;
 	
+	@NotBlank
 	private String authorityName;
-
 }

@@ -6,20 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rentalfilm.msaclientui.bean.CustomerBean;
-import com.rentalfilm.msaclientui.proxy.CustomerProxy;
+import com.rentalfilm.msaclientui.bean.UserBean;
+import com.rentalfilm.msaclientui.proxy.UserProxy;
 
 @RestController
-public class CustomerController {
+public class UserClientController {
 	
 	@Autowired
-	CustomerProxy customerProxy;
+	UserProxy userProxy;
 	
 	
-	@GetMapping("/test-customer")
-	public List<CustomerBean> testCustomer(){
+	@GetMapping("/test-user")
+	public List<UserBean> testCustomer(){
 		
-		return customerProxy.getAllCustomer();
+		return userProxy.getAllUser();
 	}
 	
 
