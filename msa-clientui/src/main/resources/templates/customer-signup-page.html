@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<th:block th:replace="/scriptAndLink/_head :: head"></th:block>
+	  	
+	  	<title>Signup</title>
+	</head>
+	
+	<body>
+		<div class="jumbotron text-center">
+	    	<h1>Rental Films: User Authentication</h1>   
+		</div>
+		
+		<div class="container text-center">
+		
+			<div class="row">
+			
+	  			<div class="col-sm-4">  </div>
+	  			
+  				<div class="col-sm-4">
+  				
+  					<!--  
+  					<h2 th:if="${userSignupRequest.signInProvider != ''}"> Sign Up with <span th:utext="${userSignupRequest.signInProvider}"></span></h2>
+  					
+  					<h2 th:if="${userSignupRequest.signInProvider == ''}">Sign Up</h2>
+  					-->
+  					<h2>New Customer</h2>
+  					<hr>
+  					<div class="alert alert-danger" th:if="${errorMessage != null}" th:text="${errorMessage}">  </div>
+  					<hr>
+  					
+  					<form th:object="${registerCustomerRequest}" method="POST">		
+  						
+  						<input type="hidden" th:field="*{customerId}"  />
+         				<!--  <input type="hidden" th:field="*{signInProvider}" />  -->
+         				
+         				<!-- Username -->
+         				<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-text"> <i class="fas fa-user"></i> </span>
+								<input type="text" class="form-control" id="username" th:field="*{username}"  name="username" placeholder="Username" autofocus>
+							</div>
+							<div class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> .. </div>
+						</div>
+						
+						<!-- Email -->
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-text"> <i class="fas fa-envelope"></i> </span>
+								<input type="text" class="form-control" id="email" th:field="*{email}"  name="email" placeholder="Email" autofocus>
+							</div>
+							<div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"> .. </div>
+						</div>
+         				
+         				<!-- First Name -->
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-text"> <i class="fas fa-pen"></i> </span>
+								<input type="text" class="form-control" id="firstName" th:field="*{firstName}"  name="firstName" placeholder="First Name" autofocus>
+							</div>
+							<div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"> .. </div>
+						</div>
+  						
+						<!-- Last Name -->
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-text"> <i class="fas fa-pen"></i> </span>
+								<input type="text" class="form-control" id="lastName" th:field="*{lastName}"  name="lastName" placeholder="Last Name" autofocus>
+							</div>
+							<div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"> .. </div>
+						</div>
+						
+						<!-- Password -->
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-text"> <i class="fas fa-lock"></i> </span>
+								<input type="password" class="form-control" id="password" th:field="*{password}"  name="password" placeholder="Password" autofocus>
+							</div>
+							<div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> .. </div>
+						</div>
+						
+						<!-- Confirm Password  -->
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-text"> <i class="fas fa-lock"></i> </span>
+								<input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}"  name="confirmPassword" placeholder="Confirm Password" autofocus>
+							</div>
+							<div class="alert alert-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"> .. </div>
+						</div>
+						
+						<!-- Store  -->
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-text"> Select store </span>
+								<select class="form-control" id="storeId" th:field="*{storeId}" name="storeId" >
+					      			<option th:each="store : ${storeList}" th:text= "${store.storeId}"> </option>
+					    		</select>
+							</div>
+						</div>
+					
+							
+						<div class="d-flex justify-content-between mb-3">
+							<div class="p-2"> <a href="/"> <button type="button" class="btn btn-secondary"> Back </button> </a> </div>
+							<div class="p-2"> </div>
+							<div class="p-2"> <button type="submit" class="btn btn-info"> Register Customer </button> </div>
+						</div>
+							
+					</form>
+					
+					<div class="row">		                
+		                <div class="col-md-12">
+		                	<hr>
+		                    Already an Account? <a href="/" th:href="@{/public/login}">Login</a>
+		                </div> 
+		            </div>       
+						
+				</div>
+				
+				<div class="col-sm-4">  </div>
+				
+  			</div>
+  			
+		</div>
+		
+		<th:block th:replace="/scriptAndLink/_body :: body"></th:block>
+	</body>
+	
+</html>

@@ -30,12 +30,13 @@ public class CreateUserRequest {
     private String password;
 	
 
-	
-	//bi-directional many-to-one association to Picture
-	private Long pictureId;
-	
 	@NotBlank
 	private String authorityName;
+	
+	//bi-directional many-to-one association to Picture
+	//private Long pictureId;
+	
+	
 
 
 }

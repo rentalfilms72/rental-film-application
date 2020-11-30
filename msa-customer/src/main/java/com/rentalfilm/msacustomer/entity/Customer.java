@@ -24,7 +24,7 @@ import java.util.Date;
 @Table(name="CUSTOMER")
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Customer implements Serializable {
-	
+	// CUSxxxxxXX : where x represent digit and X represent Letter , 5 letters + 5 digits
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -75,19 +75,8 @@ public class Customer implements Serializable {
 	private Date lastUpdate;
 	
 
-	
-	//bi-directional many-to-one association to Picture
-	@Column(name = "PICTURE_ID")
-	private Long pictureId;
-
-	//bi-directional many-to-one association to Address
-	@NotNull
-	@Column(name="ADDRESS_ID")
-	private Long addressId;
-
 	//bi-directional many-to-one association to Store
 	@NotNull
 	@Column(name="STORE_ID")
 	private String storeId;
-
 }

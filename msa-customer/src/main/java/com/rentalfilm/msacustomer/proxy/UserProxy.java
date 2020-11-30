@@ -7,6 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.rentalfilm.msacustomer.bean.UserBean;
@@ -22,6 +23,12 @@ public interface UserProxy {
 	
 	@PostMapping("/msa-user/user/create")
 	public UserBean  createUser( @RequestBody CreateUserRequest createUserRequest);
+	
+	@PutMapping("/msa-user/user/enable/{userId}")
+	public boolean enableUser(@PathVariable(name = "userId") String userId);
+	
+	@PutMapping("/msa-user/user/disable/{userId}")
+	public boolean disableUser(@PathVariable(name = "userId") String userId);
 	
 	@GetMapping("/msa-user/user/user-exist/{userId}")
 	public boolean userExist(@PathVariable("userId") String userId);

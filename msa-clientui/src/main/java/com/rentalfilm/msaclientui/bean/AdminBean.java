@@ -1,7 +1,5 @@
 package com.rentalfilm.msaclientui.bean;
 
-import java.io.Serializable;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,25 +8,27 @@ import java.util.Date;
 
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class AdminBean implements Serializable {
+public class AdminBean {
+		
+	private String adminId;
 	
-	private static final long serialVersionUID = 1L;
+	private String email;
 	
-	private Long addressId;
+    private String username;
+    
+    private String password;
 	
-	private String address;
+	private String firstName;
 
-	private String address2 = null;
+	private String lastName;
 
-	private String district;
-
-	private String postalCode = null;
-
+	private boolean enabled;
+	
+	private Date createDate;
+	
 	private Date lastUpdate;
-
-	private String phone;
 	
 	
-
-	private Long cityId;
+	private String storeId;
+	
 }

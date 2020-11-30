@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,7 +48,7 @@ public class UserController {
 		newUser.setPassword(createUserRequest.getPassword());
 		newUser.setEmail(createUserRequest.getEmail());
 		
-		newUser.setPictureId(createUserRequest.getPictureId());
+		//newUser.setPictureId(createUserRequest.getPictureId());
 		//newUser.setAuthorities(createUserRequest.getAuthorities());	
 		
 		// Save the User on DATA BASE
@@ -57,11 +58,40 @@ public class UserController {
 		// Call the msa-userauthority
 		CreateUserAuthorityRequest  createUserAuthorityRequest = new CreateUserAuthorityRequest();
 		createUserAuthorityRequest.setUserId(createUserRequest.getUserId());
-		createUserAuthorityRequest.setAuthorityname(createUserRequest.getAuthorityName());
+		createUserAuthorityRequest.setAuthorityName(createUserRequest.getAuthorityName());
 		userAuthorityProxy.createUserAuthority(createUserAuthorityRequest);
 		
 		
+		
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/user/enable/{userId}")
+	public boolean enableUser(@PathVariable(name = "userId") String userId){
+		
+		Optional<User> userFound = userRepository.findById(userId);
+		if(userFound.isPresent()) {
+			userFound.get().setEnabled(true);
+			userRepository.save(userFound.get());
+			return true;
+		}
+		
+		
+		return false;
+	}
+	
+	@PutMapping("/user/disable/{userId}")
+	public boolean disableUser(@PathVariable(name = "userId") String userId){
+		
+		Optional<User> userFound = userRepository.findById(userId);
+		if(userFound.isPresent()) {
+			userFound.get().setEnabled(false);
+			userRepository.save(userFound.get());
+			return true;
+		}
+		
+		
+		return false;
 	}
 	
 	@GetMapping("/user/user-exist/{userId}")

@@ -23,8 +23,5 @@ public class StoreBean implements Serializable {
 	private Date lastUpdate;
 
 
-	
-	private Long addressId;
-
 	private String managerStaffId;
 }

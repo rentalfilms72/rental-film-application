@@ -18,17 +18,12 @@ public class AddressBean implements Serializable {
 	
 	private String address;
 
-	private String address2 = null;
-
-	private String district;
-
-	private String postalCode = null;
+	private String postalCode;
+	
+	private String phone;
 
 	private Date lastUpdate;
 
-	private String phone;
 	
-	
-
 	private Long cityId;
 }

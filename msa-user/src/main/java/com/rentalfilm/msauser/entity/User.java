@@ -57,14 +57,9 @@ public class User {
 			updatable=true, insertable=false, 
 			columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private Date updatedAt;
+
 	
-	// The auhorities of user is a string 
-	// In case there many authority, each are separte with ;
-//	@NotBlank
-//	@Column(name = "AUTHORIRY")
-//	private String authorities;
-	
-	@Column(name = "PICTURE_ID")
-	private Long pictureId;
+//	@Column(name = "PICTURE_ID")
+//	private Long pictureId;
 
 }

@@ -14,6 +14,6 @@ public class CreateUserAuthorityRequest {
 	private String userId;
 	
 	@NotBlank
-	private String authorityname;
+	private String authorityName;
 
 }

@@ -4,10 +4,16 @@ import java.util.List;
 
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.rentalfilm.msaclientui.bean.CustomerBean;
+import com.rentalfilm.msaclientui.payload.request.RegisterCustomerRequest;
+
 
 @FeignClient(
 		name = "edge-zuul",
@@ -17,9 +23,18 @@ import com.rentalfilm.msaclientui.bean.CustomerBean;
 @RibbonClient(name = "msa-customer")
 public interface CustomerProxy {
 	
+	@PostMapping("/customer/register")
+	public CustomerBean  registerCustomer( 
+			@RequestBody @Validated RegisterCustomerRequest registerCustomerRequest);
+	
+	@PutMapping("/customer/enable/{customerId}")
+	public boolean enableCustomer(@PathVariable(name = "customerId") String customerId);
+	
+	@PutMapping("/customer/disable/{customerId}")
+	public boolean disableCustomer(@PathVariable(name = "customerId") String customerId);
+	
 	@GetMapping("/customer/get-by-id/{customerId}")
 	public CustomerBean  getOneCustomer(@PathVariable(name = "customerId") String customerId);
-	
 	
 	@GetMapping("/customer/get-all")
 	public List<CustomerBean>  getAllCustomer();

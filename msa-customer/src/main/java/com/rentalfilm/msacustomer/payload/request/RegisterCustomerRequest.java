@@ -42,17 +42,8 @@ public class RegisterCustomerRequest {
 	private String lastName;
 	
 
-	
-	//bi-directional many-to-one association to Picture
-	private Long pictureId;
-
-	//bi-directional many-to-one association to Address
-	@NotNull
-	private Long addressId;
-
 	//bi-directional many-to-one association to Store
 	@NotNull
 	private String storeId;
-
-
+	
 }

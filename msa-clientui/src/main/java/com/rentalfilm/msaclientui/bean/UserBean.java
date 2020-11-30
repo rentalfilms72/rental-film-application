@@ -27,8 +27,8 @@ public class UserBean {
 	
 	
 	
-	private String authority;
+	private String authorityName;
 	
-	private Long pictureId;
+	//private Long pictureId;
 
 }
