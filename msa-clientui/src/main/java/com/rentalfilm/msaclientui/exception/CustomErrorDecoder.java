@@ -11,9 +11,9 @@ public class CustomErrorDecoder implements ErrorDecoder {
 		final ErrorDecoder defaultErrorDecoder = new Default();
 
 		
-		if(response.status() == 404) {
-			throw new ProductNotFoundException("Product not found");
-		}
+//		if(response.status() == 404) {
+//			throw new ProductNotFoundException("Product not found");
+//		}
 		return defaultErrorDecoder.decode(methodKey, response);
 	}
 

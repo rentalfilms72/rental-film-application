@@ -3,7 +3,6 @@ package com.rentalfilm.msaclientui.payload.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -43,7 +42,7 @@ public class RegisterCustomerRequest {
 	
 
 	//bi-directional many-to-one association to Store
-	@NotNull
+	@NotBlank
 	private String storeId;
 	
 }

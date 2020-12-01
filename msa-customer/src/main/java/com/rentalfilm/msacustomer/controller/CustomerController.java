@@ -90,7 +90,6 @@ public class CustomerController {
 		newCustomer = customerRepository.save(newCustomer);
 		
 		
-		
 		// Call the User microservice to create also a User
 		CreateUserRequest createUserRequest = new CreateUserRequest();
 		createUserRequest.setUserId(idGenerated);
@@ -103,7 +102,7 @@ public class CustomerController {
 		userProxy.createUser(createUserRequest);
 		
 
-		return new ResponseEntity<Customer>(newCustomer, HttpStatus.CREATED);
+		return new ResponseEntity<Customer>(newCustomer, HttpStatus.OK);
 	}
 	
 	@PutMapping("/customer/enable/{customerId}")
@@ -124,6 +123,7 @@ public class CustomerController {
 		return false;
 	}
 	
+	
 	@PutMapping("/customer/disable/{customerId}")
 	public boolean disableCustomer(@PathVariable(name = "customerId") String customerId){
 		
@@ -139,6 +139,7 @@ public class CustomerController {
 		return false;
 	}
 
+	
 	// Proxy method
 	@GetMapping("/customer/get-by-id/{customerId}")
 	public ResponseEntity<Customer>  getOneCustomer(@PathVariable(name = "customerId") String customerId) {
@@ -148,9 +149,9 @@ public class CustomerController {
 			throw new CustomerNotFoundException("Customer with id '" + customerId + "' do not exist.");
 
 
-		return new ResponseEntity<Customer>(customerFound.get(), HttpStatus.CREATED);
-
+		return new ResponseEntity<Customer>(customerFound.get(), HttpStatus.OK);
 	}
+	
 	// Proxy method
 	@GetMapping("/customer/get-all")
 	public List<Customer>  getAllCustomer(){

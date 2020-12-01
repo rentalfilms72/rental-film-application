@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
@@ -76,7 +75,7 @@ public class Customer implements Serializable {
 	
 
 	//bi-directional many-to-one association to Store
-	@NotNull
+	@NotBlank
 	@Column(name="STORE_ID")
 	private String storeId;
 }

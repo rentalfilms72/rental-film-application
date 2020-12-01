@@ -12,4 +12,6 @@ public interface StoreRepository extends JpaRepository<Store, String>{
 
 	Optional<Store> findByStoreName(String storeName);
 
+	Optional<Store> findByManagerStaffId(String managerStaffId);
+
 }

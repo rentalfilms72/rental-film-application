@@ -40,7 +40,8 @@ public class RegisterCustomerValidator implements Validator {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "", "Password is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "", "Confirm Password is required");
-
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "storeId", "", "Select one store. Store Id is required");
 
 		if (errors.hasErrors()) {
 			return;

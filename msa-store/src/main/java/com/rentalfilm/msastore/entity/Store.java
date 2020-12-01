@@ -36,7 +36,6 @@ public class Store implements Serializable {
 
 	//bi-directional many-to-one association to Staff
 	//@NotNull
-	@ManyToOne
 	@Column(name="MANAGER_STAFF_ID",  unique=true, nullable=true)
 	private String managerStaffId;
 }

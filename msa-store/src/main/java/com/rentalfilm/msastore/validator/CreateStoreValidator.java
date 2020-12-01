@@ -46,6 +46,12 @@ public class CreateStoreValidator implements Validator {
 			return;
 		}
 		
+		storeFound = storeRepository.findByManagerStaffId(createStoreRequest.getManagerStaffId());
+		if(storeFound.isPresent()) {
+			errors.rejectValue("managerStaffId", "", "The same manager can't manage more than one Store");
+			return;
+		}
+		
 	}
 
 }

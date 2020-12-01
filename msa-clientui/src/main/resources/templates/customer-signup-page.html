@@ -9,7 +9,7 @@
 	
 	<body>
 		<div class="jumbotron text-center">
-	    	<h1>Rental Films: User Authentication</h1>   
+	    	<h1>Rental Films: Register new customer</h1>   
 		</div>
 		
 		<div class="container text-center">
@@ -29,6 +29,10 @@
   					<hr>
   					<div class="alert alert-danger" th:if="${errorMessage != null}" th:text="${errorMessage}">  </div>
   					<hr>
+  					<div class="alert alert-info" th:if="${#request.getParameter('registrationSuccess') == 'true'}">
+		             	<p>Customer successfully register</p>
+		             	<p>Control your E-mail box, we send you a link to activate your account.</p>
+		           	</div>	   
   					
   					<form th:object="${registerCustomerRequest}" method="POST">		
   						
@@ -92,9 +96,12 @@
 						<!-- Store  -->
 						<div class="form-group">
 							<div class="input-group">
-								<span class="input-group-text"> Select store </span>
+								<span class="input-group-text"> Select Store </span>
 								<select class="form-control" id="storeId" th:field="*{storeId}" name="storeId" >
-					      			<option th:each="store : ${storeList}" th:text= "${store.storeId}"> </option>
+					      			<!--<option class="font-weight-light font-italic" value="text" inputmode="text">- SELECT STORE -</option> -->
+					      			<option th:each="store : ${storeListFound}" 
+					      					th:value= "${store.storeId}" 
+					      					th:text= "${store.storeId}"> </option>
 					    		</select>
 							</div>
 						</div>
