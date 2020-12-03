@@ -9,26 +9,26 @@
 			
 			<li class="nav-item active" th:unless="${#lists.isEmpty(userLoggedAuthorities)}">
 				<a class="nav-link" th:if="${#lists.contains(userLoggedAuthorities, 'ROLE_ADMIN')}" 
-				th:href="@{/private/admin/dashboard}"> Admin </a>
+				th:href="@{/clientui/private/admin/dashboard}"> Admin </a>
 			</li>
 			
 			<li class="nav-item active" th:unless="${#lists.isEmpty(userLoggedAuthorities)}">
 				<a class="nav-link" th:if="${#lists.contains(userLoggedAuthorities, 'ROLE_STAFF')}" 
-				th:href="@{/private/staff/dashboard}"> Staff </a>
+				th:href="@{/clientui/private/staff/dashboard}"> Staff </a>
 			</li>
 	
 			<li class="nav-item active" th:unless="${#lists.isEmpty(userLoggedAuthorities)}">
 				<a class="nav-link" th:if="${ #lists.contains(userLoggedAuthorities, 'ROLE_CUSTOMER')}" 
-				th:href="@{/private/customer/dashboard}"> Customer </a>
+				th:href="@{/clientui/private/customer/dashboard}"> Customer </a>
 			</li>
 
 			<li class="nav-item active">
-				<a class="nav-link" th:href="@{/public/contact-us}"> Contact Us </a>
+				<a class="nav-link" th:href="@{/clientui/public/contact-us}"> Contact Us </a>
 			</li>
 		
 		
 			<li class="nav-item active">
-				<a class="nav-link" th:if="${#request.userPrincipal != null}" th:href="@{/public/logout}"> Logout </a>
+				<a class="nav-link" th:if="${#request.userPrincipal != null}" th:href="@{/clientui/public/logout}"> Logout </a>
 			</li>
 	
 		</ul>
@@ -40,7 +40,7 @@
 		
 			<li>
 				<div class="nav-item active">
-				  	<a href="/clientui/customer/signup">
+				  	<a href="/clientui/public/customer/signup">
 						<button type="button" class="btn btn-success" >
 							New Customer
 						</button>
@@ -50,11 +50,8 @@
 		
 			<li>
 				<div class="nav-item active">
-					<a th:href="${urlLoginEdgeZuul}"> 
-					  	<button class="btn btn-primary" type="button">
-					    	Login
-					  	</button>
-					</a>
+					<!-- <a th:href="${urlLoginEdgeZuul}"> -->
+					<th:block th:replace="/link/_loginLink :: loginLink"></th:block>
 				</div>
 			</li>
 	

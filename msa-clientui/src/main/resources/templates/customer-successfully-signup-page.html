@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<th:block th:replace="/scriptAndLink/_head :: head"></th:block>
+	  	
+	  	<title>Signup successful</title>
+	</head>
+	
+	<body>
+		<div class="jumbotron text-center">
+	    	<h1>Rental Films: Registration successful</h1>   
+		</div>
+		
+		<div class="container text-center">
+		
+			<div class="row">
+			
+	  			<div class="col-sm-4">  </div>
+	  			
+  				<div class="col-sm-4">
+  				
+  					<hr>
+  					<div class="alert alert-info" >
+		             	<p>Customer successfully register</p>
+		             	<p>Control your E-mail box, we send you a link to activate your account.</p>
+		           	</div>	   
+  					
+  					
+					<div class="row">		                
+		                <div class="col-md-12">
+		                	<hr>
+		                    Already an Account? 
+		                    <th:block th:replace="/link/_loginLink :: loginLink"></th:block> 
+		                </div> 
+		            </div>       
+						
+				</div>
+				
+				<div class="col-sm-4">  </div>
+				
+  			</div>
+  			
+		</div>
+		
+		<th:block th:replace="/scriptAndLink/_body :: body"></th:block>
+	</body>
+	
+</html>

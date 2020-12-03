@@ -21,7 +21,7 @@ public class AuthorityController {
 	@Autowired
 	AuthorityRepository  authorityRepository;
 	
-	@GetMapping("/authority/auhority-name-exist")
+	@GetMapping("/authority/public/auhority-name-exist")
 	public boolean authorityNameExist( @PathVariable("name") String name){
 		
 		AuthorityEmunType AuthorityEmun = null;
@@ -43,7 +43,7 @@ public class AuthorityController {
 		return true;
 	}
 	
-	@GetMapping("/authority/get-by-name")
+	@GetMapping("/authority/public/get-by-name")
 	public ResponseEntity<Authority> getAuthorityByName( @PathVariable("name") String name){
 		
 		AuthorityEmunType AuthorityEmun = null;

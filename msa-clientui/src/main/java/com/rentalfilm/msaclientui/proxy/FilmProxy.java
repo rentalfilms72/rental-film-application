@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.rentalfilm.msaclientui.bean.FilmBean;
 
 @FeignClient(
-		name = "msa-zuul",
+		name = "edge-zuul",
 		contextId = "filmContextId"
 		//configuration = <classNane>ProxyConfig.class
 		)
 @RibbonClient(name = "msa-film")
 public interface FilmProxy {
 	
-	@GetMapping("/msa-film/film/get-all")
+	@GetMapping("/msa-film/film/public/get-all")
 	public List<FilmBean> getAllFilm();
 	
 	//...

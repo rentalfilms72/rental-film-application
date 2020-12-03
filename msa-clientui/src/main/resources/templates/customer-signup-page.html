@@ -28,11 +28,7 @@
   					<h2>New Customer</h2>
   					<hr>
   					<div class="alert alert-danger" th:if="${errorMessage != null}" th:text="${errorMessage}">  </div>
-  					<hr>
-  					<div class="alert alert-info" th:if="${#request.getParameter('registrationSuccess') == 'true'}">
-		             	<p>Customer successfully register</p>
-		             	<p>Control your E-mail box, we send you a link to activate your account.</p>
-		           	</div>	   
+  					<hr>  
   					
   					<form th:object="${registerCustomerRequest}" method="POST">		
   						
@@ -118,7 +114,8 @@
 					<div class="row">		                
 		                <div class="col-md-12">
 		                	<hr>
-		                    Already an Account? <a href="/" th:href="@{/public/login}">Login</a>
+		                    Already an Account? 
+		                    <th:block th:replace="/link/_loginLink :: loginLink"></th:block>
 		                </div> 
 		            </div>       
 						

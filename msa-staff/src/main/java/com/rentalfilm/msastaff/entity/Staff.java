@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
@@ -14,12 +16,21 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Entity
+@Table(name="STAFF")
+@Data @AllArgsConstructor @NoArgsConstructor
 public class Staff implements Serializable {
 	// STAFFxxxx : where x represent digit and X represent Letter , 5 letters + 4 digits
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Size(min=7, max=10)
+	@Size(min=9, max=10)
 	@Column(name="STAFF_ID", columnDefinition="VARCHAR(10)")
 	private String staffId;
 	

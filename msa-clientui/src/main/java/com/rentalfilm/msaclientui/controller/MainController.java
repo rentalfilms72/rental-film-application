@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.rentalfilm.msaclientui.url.Constant;
 
 @Controller
-public class MainClientController {
+public class MainController {
 	
 	
 	/**

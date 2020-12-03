@@ -60,7 +60,7 @@ public class CustomerController {
 	}
 
 	@Transactional
-	@PostMapping("/customer/register")
+	@PostMapping("/customer/public/register")
 	public ResponseEntity<Customer>  registerCustomer( 
 			@RequestBody @Validated RegisterCustomerRequest registerCustomerRequest) {
 		
@@ -105,7 +105,7 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(newCustomer, HttpStatus.OK);
 	}
 	
-	@PutMapping("/customer/enable/{customerId}")
+	@PutMapping("/customer/public/enable/{customerId}")
 	public boolean enableCustomer(@PathVariable(name = "customerId") String customerId){
 		
 		Optional<Customer> customerFound = customerRepository.findById(customerId);
@@ -124,7 +124,7 @@ public class CustomerController {
 	}
 	
 	
-	@PutMapping("/customer/disable/{customerId}")
+	@PutMapping("/customer/public/disable/{customerId}")
 	public boolean disableCustomer(@PathVariable(name = "customerId") String customerId){
 		
 		Optional<Customer> customerFound = customerRepository.findById(customerId);
@@ -141,7 +141,7 @@ public class CustomerController {
 
 	
 	// Proxy method
-	@GetMapping("/customer/get-by-id/{customerId}")
+	@GetMapping("/customer/public/get-by-id/{customerId}")
 	public ResponseEntity<Customer>  getOneCustomer(@PathVariable(name = "customerId") String customerId) {
 
 		Optional<Customer> customerFound = customerRepository.findById(customerId);
@@ -153,14 +153,14 @@ public class CustomerController {
 	}
 	
 	// Proxy method
-	@GetMapping("/customer/get-all")
-	public List<Customer>  getAllCustomer(){
+	@GetMapping("/customer/public/get-all")
+	public ResponseEntity<List<Customer>>  getAllCustomer(){
 
 		List<Customer> customerList = customerRepository.findAll();
 		if(customerList.isEmpty())
 			throw new CustomerListEmptyException("Customer list empty.");
 
-		return customerList;
+		return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
 	}
 
 

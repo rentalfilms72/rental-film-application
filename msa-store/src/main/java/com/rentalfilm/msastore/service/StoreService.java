@@ -36,7 +36,6 @@ public class StoreService {
 
 
 	/* GENERATING STORE ID */
-	//public String generateStringId(String className) {
 	public String generateStringId() {
 
 		String newId = null; // Content the final result at the end of process
@@ -44,7 +43,7 @@ public class StoreService {
 
 		Long longId = 0L;
 
-		// get the CustomerIdTable content ( there is just one rows)
+		// get the StoreIdTable content ( there is just one rows)
 		Optional<StoreIdTable> idRows = storeIdTableRepository.findById(1L);
 		if(!idRows.isPresent()) // StoreIdTable is empty
 			return null;

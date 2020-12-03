@@ -21,28 +21,28 @@ import com.rentalfilm.msaclientui.payload.request.CreateUserRequest;
 @RibbonClient(name = "msa-user")
 public interface UserProxy {
 	
-	@PostMapping("/user/create")
+	@PostMapping("/user/public/create")
 	public UserBean  createUser( @RequestBody CreateUserRequest createUserRequest);
 	
-	@GetMapping("/user/user-exist/{userId}")
+	@GetMapping("/user/public/user-exist/{userId}")
 	public boolean userExist(@PathVariable("userId") String userId);
 	
-	@GetMapping("/user/username-exist/{username}")
+	@GetMapping("/user/public/username-exist/{username}")
 	public boolean usernameExist(@PathVariable("username") String username);
 	
-	@GetMapping("/user/email-exist/{email}")
+	@GetMapping("/user/public/email-exist/{email}")
 	public boolean emailExist(@PathVariable("email") String email);
 	
-	@GetMapping("/user/get-all")
+	@GetMapping("/user/public/get-all")
 	public List<UserBean> getAllUser();
 	
-	@GetMapping("/user/get-user-by-id/{userId}")
+	@GetMapping("/user/public/get-user-by-id/{userId}")
 	public UserBean getUserById(@PathVariable("userId") String userId);
 	
-	@GetMapping("/user/get-user-by-username/{username}")
+	@GetMapping("/user/public/get-user-by-username/{username}")
 	public UserBean getUserByUsername(@PathVariable("username") String username);
 	
-	@GetMapping("/user/get-user-by-email/{email}")
+	@GetMapping("/user/public/get-user-by-email/{email}")
 	public UserBean getUserByEmail(@PathVariable("email") String email);
 
 }

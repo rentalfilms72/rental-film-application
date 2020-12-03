@@ -21,34 +21,34 @@ import com.rentalfilm.msacustomer.payload.request.CreateUserRequest;
 @RibbonClient(name = "msa-user")
 public interface UserProxy {
 	
-	@PostMapping("/msa-user/user/create")
+	@PostMapping("/msa-user/user/public/create")
 	public UserBean  createUser( @RequestBody CreateUserRequest createUserRequest);
 	
-	@PutMapping("/msa-user/user/enable/{userId}")
+	@PutMapping("/msa-user/user/public/enable/{userId}")
 	public boolean enableUser(@PathVariable(name = "userId") String userId);
 	
-	@PutMapping("/msa-user/user/disable/{userId}")
+	@PutMapping("/msa-user/user/public/disable/{userId}")
 	public boolean disableUser(@PathVariable(name = "userId") String userId);
 	
-	@GetMapping("/msa-user/user/user-exist/{userId}")
+	@GetMapping("/msa-user/user/public/user-exist/{userId}")
 	public boolean userExist(@PathVariable("userId") String userId);
 	
-	@GetMapping("/msa-user/user/username-exist/{username}")
+	@GetMapping("/msa-user/user/public/username-exist/{username}")
 	public boolean usernameExist(@PathVariable("username") String username);
 	
-	@GetMapping("/msa-user/user/email-exist/{email}")
+	@GetMapping("/msa-user/user/public/email-exist/{email}")
 	public boolean emailExist(@PathVariable("email") String email);
 	
-	@GetMapping("/msa-user/user/get-all")
+	@GetMapping("/msa-user/user/public/get-all")
 	public List<UserBean> getAllUser();
 	
-	@GetMapping("/msa-user/user/get-user-by-id/{userId}")
+	@GetMapping("/msa-user/user/get-user-by-id/public/{userId}")
 	public UserBean getUserById(@PathVariable("userId") String userId);
 	
-	@GetMapping("/msa-user/user/get-user-by-username/{username}")
+	@GetMapping("/msa-user/user/get-user-by-username/public/{username}")
 	public UserBean getUserByUsername(@PathVariable("username") String username);
 	
-	@GetMapping("/msa-user/user/get-user-by-email/{email}")
+	@GetMapping("/msa-user/user/get-user-by-email/public/{email}")
 	public UserBean getUserByEmail(@PathVariable("email") String email);
 
 }

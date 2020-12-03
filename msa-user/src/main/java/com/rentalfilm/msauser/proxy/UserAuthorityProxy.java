@@ -17,7 +17,7 @@ import com.rentalfilm.msauser.payload.request.CreateUserAuthorityRequest;
 public interface UserAuthorityProxy {
 	
 	//@PostMapping("/userauthority/create")
-	@PostMapping("/msa-userauthority/userauthority/create")
+	@PostMapping("/msa-userauthority/userauthority/public/create")
 	public UserAuthorityBean createUserAuthority(
 			@RequestBody CreateUserAuthorityRequest createUserAuthorityRequest);
 

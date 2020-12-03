@@ -23,20 +23,20 @@ import com.rentalfilm.msaclientui.payload.request.RegisterCustomerRequest;
 @RibbonClient(name = "msa-customer")
 public interface CustomerProxy {
 	
-	@PostMapping("/customer/register")
+	@PostMapping("/customer/public/register")
 	public CustomerBean  registerCustomer( 
 			@RequestBody @Validated RegisterCustomerRequest registerCustomerRequest);
 	
-	@PutMapping("/customer/enable/{customerId}")
+	@PutMapping("/customer/public/enable/{customerId}")
 	public boolean enableCustomer(@PathVariable(name = "customerId") String customerId);
 	
-	@PutMapping("/customer/disable/{customerId}")
+	@PutMapping("/customer/public/disable/{customerId}")
 	public boolean disableCustomer(@PathVariable(name = "customerId") String customerId);
 	
-	@GetMapping("/customer/get-by-id/{customerId}")
+	@GetMapping("/customer/public/get-by-id/{customerId}")
 	public CustomerBean  getOneCustomer(@PathVariable(name = "customerId") String customerId);
 	
-	@GetMapping("/customer/get-all")
+	@GetMapping("/customer/public/get-all")
 	public List<CustomerBean>  getAllCustomer();
 
 }

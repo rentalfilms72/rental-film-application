@@ -60,7 +60,7 @@ public class SignupController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/clientui/customer/signup")
+	@GetMapping("/clientui/public/customer/signup")
 	public String registerCustomerPage(WebRequest request, Model model) {
 
 		RegisterCustomerRequest registerCustomerRequest = new RegisterCustomerRequest();
@@ -74,7 +74,7 @@ public class SignupController {
 	}
 
 
-	@PostMapping("/clientui/customer/signup")
+	@PostMapping("/clientui/public/customer/signup")
 	public String saveCustomer(
 			WebRequest request,
 			Model model, 
@@ -95,7 +95,7 @@ public class SignupController {
 		// Call the micro service Email to send and email to activate an account
 		// TODO
 		// ...
-		return "redirect:/clientui/customer/signup?registrationSuccess=true";
+		return "customer-successfully-signup-page";
 
 	}
 

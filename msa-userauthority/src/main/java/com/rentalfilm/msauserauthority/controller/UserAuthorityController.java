@@ -22,7 +22,7 @@ public class UserAuthorityController {
 	UserAuthorityRepository userAuthorityRepository;
 	
 	@Transactional
-	@PostMapping("/userauthority/create")
+	@PostMapping("/userauthority/public/create")
 	public ResponseEntity<UserAuthority> createUserAuthority(
 			@RequestBody CreateUserAuthorityRequest createUserAuthorityRequest){
 		
@@ -43,7 +43,7 @@ public class UserAuthorityController {
 		if(!userAuthorityFound.isPresent())
 			newUserAuthority = userAuthorityRepository.save(newUserAuthority);
 		
-		return new ResponseEntity<UserAuthority>(newUserAuthority, HttpStatus.CREATED);
+		return new ResponseEntity<UserAuthority>(newUserAuthority, HttpStatus.OK);
 	}
 
 }

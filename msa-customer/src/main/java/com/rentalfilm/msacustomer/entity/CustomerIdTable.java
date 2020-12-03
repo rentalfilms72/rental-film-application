@@ -1,5 +1,7 @@
 package com.rentalfilm.msacustomer.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="CUSTOMER_ID_TABLE")
 @Data @AllArgsConstructor @NoArgsConstructor
-public class CustomerIdTable {
+public class CustomerIdTable implements Serializable {
+	// CUSxxxxxXX : where x represent digit and X represent Letter , 5 letters + 5 digits
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

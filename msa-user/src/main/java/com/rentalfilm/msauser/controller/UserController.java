@@ -36,7 +36,7 @@ public class UserController {
 	UserAuthorityProxy userAuthorityProxy;
 	
 	@Transactional
-	@PostMapping("/user/create")
+	@PostMapping("/user/public/create")
 	public ResponseEntity<User>  createUser( @RequestBody CreateUserRequest createUserRequest) {
 		
 		// verify if the user already exist
@@ -61,12 +61,10 @@ public class UserController {
 		createUserAuthorityRequest.setAuthorityName(createUserRequest.getAuthorityName());
 		userAuthorityProxy.createUserAuthority(createUserAuthorityRequest);
 		
-		
-		
-		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+		return new ResponseEntity<User>(newUser, HttpStatus.OK);
 	}
 	
-	@PutMapping("/user/enable/{userId}")
+	@PutMapping("/user/public/enable/{userId}")
 	public boolean enableUser(@PathVariable(name = "userId") String userId){
 		
 		Optional<User> userFound = userRepository.findById(userId);
@@ -75,12 +73,10 @@ public class UserController {
 			userRepository.save(userFound.get());
 			return true;
 		}
-		
-		
 		return false;
 	}
 	
-	@PutMapping("/user/disable/{userId}")
+	@PutMapping("/user/public/disable/{userId}")
 	public boolean disableUser(@PathVariable(name = "userId") String userId){
 		
 		Optional<User> userFound = userRepository.findById(userId);
@@ -94,7 +90,7 @@ public class UserController {
 		return false;
 	}
 	
-	@GetMapping("/user/user-exist/{userId}")
+	@GetMapping("/user/public/user-exist/{userId}")
 	public boolean userExist(@PathVariable("userId") String userId) {
 		
 		Optional<User> userFound = userRepository.findById(userId);
@@ -104,7 +100,7 @@ public class UserController {
 		return true;
 	}
 	
-	@GetMapping("/user/username-exist/{username}")
+	@GetMapping("/user/public/username-exist/{username}")
 	public boolean usernameExist(@PathVariable("username") String username) {
 		
 		Optional<User> userFound = userRepository.findByUsername(username);
@@ -114,7 +110,7 @@ public class UserController {
 		return true;
 	}
 	
-	@GetMapping("/user/email-exist/{email}")
+	@GetMapping("/user/public/email-exist/{email}")
 	public boolean emailExist(@PathVariable("email") String email) {
 		
 		Optional<User> userFound = userRepository.findByEmail(email);
@@ -125,7 +121,7 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/user/get-user-by-id/{userId}")
+	@GetMapping("/user/public/get-user-by-id/{userId}")
 	public ResponseEntity<User> getUserById(@PathVariable("userId") String userId) {
 		
 		Optional<User> userFound = userRepository.findById(userId);
@@ -135,7 +131,7 @@ public class UserController {
 		return new ResponseEntity<User>(userFound.get(), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/user/get-user-by-username/{username}")
+	@GetMapping("/user/public/get-user-by-username/{username}")
 	public ResponseEntity<User> getUserByUsername(@PathVariable("username") String username) {
 		
 		Optional<User> userFound = userRepository.findByUsername(username);
@@ -145,7 +141,7 @@ public class UserController {
 		return new ResponseEntity<User>(userFound.get(), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/user/get-user-by-email/{email}")
+	@GetMapping("/user/public/get-user-by-email/{email}")
 	public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
 		
 		Optional<User> userFound = userRepository.findByEmail(email);
@@ -155,7 +151,7 @@ public class UserController {
 		return new ResponseEntity<User>(userFound.get(), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/user/get-all")
+	@GetMapping("/user/public/get-all")
 	public List<User> getAllUser() {
 		
 		List<User> userList = userRepository.findAll();

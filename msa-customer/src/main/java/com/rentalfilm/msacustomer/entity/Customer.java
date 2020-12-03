@@ -15,10 +15,6 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 
-/**
- * The persistent class for the customer database table.
- * 
- */
 @Entity
 @Table(name="CUSTOMER")
 @Data @AllArgsConstructor @NoArgsConstructor

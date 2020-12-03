@@ -47,7 +47,8 @@ public class StoreController {
 		}	
 	}
 
-	@PostMapping("/store/create")
+	@PostMapping("/store/private/create")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Store>  createStore( 
 			@RequestBody @Validated CreateStoreRequest createStoreRequest) { 
 		
@@ -64,7 +65,7 @@ public class StoreController {
 		return new ResponseEntity<Store>(newStore, HttpStatus.OK);
 	}
 	
-	@GetMapping("/store/get-all")
+	@GetMapping("/store/public/get-all")
 	public List<Store> getAllStore(){
 		
 		List<Store> storeList = storeRepository.findAll();

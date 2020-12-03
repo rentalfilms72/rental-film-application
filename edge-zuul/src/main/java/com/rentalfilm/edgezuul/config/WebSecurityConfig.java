@@ -41,44 +41,66 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.csrf().disable();
-//		http.authorizeRequests()
-//			.antMatchers(// Pages do not require login
-//					"/", 
-//					"/home",
-//	                "/*.html",
-//	                "/**/favicon.ico",
-//	                "/**/*.html",
-//	                "/**",
-//	                "/**/*.css",
-//	                "/**/*.js"
-//					).permitAll()
-//		 	.antMatchers(
-//		 			"/public/**",
-//		 			"errors/**"
-//		 			).permitAll();
 		http.authorizeRequests()
-			.antMatchers("/public/**",
-						"/clientui/**",
-						"/test-customer",
-						"/**")
-			.permitAll();
+			.antMatchers(// Pages do not require login
+					"/", 
+					"/home",
+	                "/*.html",
+	                "/**/favicon.ico",
+	                "/**/*.html",
+	                //"/**",
+	                "/**/*.css",
+	                "/**/*.js"
+					).permitAll()
+		 	.antMatchers(
+		 			"/msa-actor/actor/public/**",
+		 			"/msa-admin/admin/public/**",
+		 			"/msa-authority/authority/public/**",
+		 			"/msa-category/category/public/**",
+		 			"/msa-country/country/public/**",
+		 			"/msa-clientui/clientui/public/**",
+		 			"/msa-customer/customer/public/**",
+		 			"/msa-film/film/public/**",
+		 			"/msa-filmactor/filmactor/public/**",
+		 			"/msa-filmcategory/filmcategory/public/**",
+		 			"/msa-filmfeatures/filmfeatures/public/**",
+		 			"/msa-filmrating/filmrating/public/**",
+		 			"/msa-inventory/inventory/public/**",
+		 			"/msa-language/language/public/**",
+		 			"/msa-payment/payment/public/**",
+		 			"/msa-picture/picture/public/**",
+		 			"/msa-pwdresettoken/pwdresettoken/public/**",
+		 			"/msa-rental/rental/public/**",
+		 			"/msa-specialfeatures/specialfeatures/public/**",
+		 			"/msa-staff/staff/public/**",
+		 			"/msa-store/store/public/**",
+		 			"/msa-user/user/public/**",
+		 			"/msa-userauthority/userauthority/public/**",
+		 			"errors/**"
+		 			).permitAll();
+		
+//		http.authorizeRequests()
+//			.antMatchers("/public/**",
+//						"/clientui/**",
+//						"/test-customer"
+//						//"/**"
+//						)
+//			.permitAll();
 		
 		http.authorizeRequests()
 			// All the Url require an authentication of the user
-	        .antMatchers("/private/admin/**").hasAnyAuthority("ROLE_ADMIN")
-	        .antMatchers("/private/staff/**").hasAnyAuthority("ROLE_STAFF")
-	        .antMatchers("/private/customer/**").hasAuthority("ROLE_CUSTOMER")
-//	        .antMatchers("/private/admin/**").access("hasRole('" + RoleEmunType.ROLE_ADMIN + "')")
-//	        .antMatchers("/private/staff/**").access("hasRole('" + RoleEmunType.ROLE_STAFF + "')")
-//	        .antMatchers("/private/customer/**").access("hasRole('" + RoleEmunType.ROLE_CUSTOMER + "')")
+	        .antMatchers("/admin/private/**").hasAnyAuthority("ROLE_ADMIN")
+	        .antMatchers("/staff/private/**").hasAnyAuthority("ROLE_STAFF")
+	        .antMatchers("/customer/private/**").hasAuthority("ROLE_CUSTOMER")
+
 	        .anyRequest().authenticated()
 	        
 	        .and()
 	        .formLogin()
-			.loginProcessingUrl("/clientui/login") // Submit URL 
-			.loginPage("/clientui/login")
+			.loginProcessingUrl("/clientui/public/login") // Submit URL 
+			.loginPage("/clientui/public/login")
 			.successHandler(successHandler)// On login success we open the custom Dashboard for any USER ROLE
-			.failureUrl("/clientui/login?error=true")// If the login process return error
+			.failureUrl("/clientui/public/login?error=true")// If the login process return error
 			.usernameParameter("username")
 			.passwordParameter("password")
 	        
@@ -86,8 +108,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        .logout()
 	        .invalidateHttpSession(true)
 			.clearAuthentication(true)
-			.logoutRequestMatcher(new AntPathRequestMatcher("/clientui/logout"))
-			.logoutUrl("/clientui/logout")
+			.logoutRequestMatcher(new AntPathRequestMatcher("/clientui/public/logout"))
+			.logoutUrl("/clientui/public/logout")
 			.logoutSuccessUrl("/")
 		
 	        .and()

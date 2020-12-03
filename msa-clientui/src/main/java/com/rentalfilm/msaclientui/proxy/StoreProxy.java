@@ -20,11 +20,11 @@ import com.rentalfilm.msaclientui.payload.request.CreateStoreRequest;
 @RibbonClient(name = "msa-store")
 public interface StoreProxy {
 	
-	@PostMapping("/msa-store/store/create")
+	@PostMapping("/msa-store/store/private/create")
 	public StoreBean  createStore( 
 			@RequestBody @Validated CreateStoreRequest createStoreRequest);
 	
-	@GetMapping("/msa-store/store/get-all")
+	@GetMapping("/msa-store/store/public/get-all")
 	public List<StoreBean> getAllStore();
 
 }
