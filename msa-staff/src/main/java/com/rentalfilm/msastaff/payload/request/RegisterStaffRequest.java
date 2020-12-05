@@ -42,7 +42,7 @@ public class RegisterStaffRequest {
 	
 
 	//bi-directional many-to-one association to Store
-	@NotBlank
-	private String storeId;
+	//@NotBlank
+	private String storeId = null;
 	
 }

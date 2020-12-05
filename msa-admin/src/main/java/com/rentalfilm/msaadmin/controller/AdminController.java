@@ -36,16 +36,16 @@ import com.rentalfilm.msaadmin.validator.RegisterAdminValidator;
 public class AdminController {
 
 	@Autowired
-	AdminRepository adminRepository;
+	private AdminRepository adminRepository;
 	
 	@Autowired
-	AdminService adminService;
+	private AdminService adminService;
 	
 	@Autowired
-	UserProxy userProxy;
+	private UserProxy userProxy;
 	
 	@Autowired
-	RegisterAdminValidator registerAdminValidator;
+	private RegisterAdminValidator registerAdminValidator;
 
 	// Set a form validator
 	@InitBinder
@@ -63,7 +63,7 @@ public class AdminController {
 	}
 
 	@Transactional
-	@PostMapping("/admin/public/register")
+	@PostMapping("/admin/private/register")
 	public ResponseEntity<Admin>  registerAdmin( 
 			@RequestBody @Validated RegisterAdminRequest registerAdminRequest) {
 		
@@ -87,7 +87,7 @@ public class AdminController {
 		
 		//newAdmin.setPictureId(registerAdminRequest.getPictureId());
 		//newAdmin.setAddressId(registerAdminRequest.getAddressId());
-		newAdmin.setStoreId(registerAdminRequest.getStoreId());
+		//newAdmin.setStoreId(registerAdminRequest.getStoreId());
 		
 		// Save the customer on DATA BASE
 		newAdmin = adminRepository.save(newAdmin);

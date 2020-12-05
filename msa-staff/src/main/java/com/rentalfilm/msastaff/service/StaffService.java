@@ -100,7 +100,7 @@ public class StaffService {
 		longId++; // Increment the number in the ID
 
 		// STAFFxxxx : where x represent digit and X represent Letter , 5 letters + 4 digits 
-		newId = new String("STORE"+ formatNumber(longId, 4) ); // Generate a new ID 
+		newId = new String("STAFF"+ formatNumber(longId, 4) ); // Generate a new ID 
 		idRows.get().setStaffId(newId);
 		
 

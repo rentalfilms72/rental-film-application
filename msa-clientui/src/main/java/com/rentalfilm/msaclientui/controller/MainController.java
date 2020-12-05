@@ -4,13 +4,19 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.rentalfilm.msaclientui.bean.StoreBean;
+import com.rentalfilm.msaclientui.proxy.StoreProxy;
 import com.rentalfilm.msaclientui.url.Constant;
 
+//@RestController
 @Controller
 public class MainController {
 	
@@ -45,5 +51,15 @@ public class MainController {
 
 		return "redirect:/";
 	}
+	
+//	@Autowired
+//	private StoreProxy storeProxy;
+//	// JUST TO TEST
+//	@GetMapping("/clientui/public/get-all-store")
+//	public List<StoreBean> getStoreList(){
+//		
+//		List<StoreBean> storeList = storeProxy.getAllStore();		
+//		return storeList;
+//	}
 
 }

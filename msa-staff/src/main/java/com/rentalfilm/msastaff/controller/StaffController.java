@@ -30,21 +30,20 @@ import com.rentalfilm.msastaff.util.EncrytedPasswordUtils;
 import com.rentalfilm.msastaff.validator.RegisterStaffValidator;
 
 
-
 @RestController
 public class StaffController {
 
 	@Autowired
-	StaffRepository staffRepository;
-	
+	private StaffRepository staffRepository;
+
 	@Autowired
-	StaffService staffService;
-	
+	private StaffService staffService;
+
 	@Autowired
-	UserProxy userProxy;
-	
+	private UserProxy userProxy;
+
 	@Autowired
-	RegisterStaffValidator registerStaffValidator;
+	private RegisterStaffValidator registerStaffValidator;
 
 	// Set a form validator
 	@InitBinder
@@ -61,87 +60,64 @@ public class StaffController {
 		}	
 	}
 
+	/*###################
+	 # POST METHODS
+	 ####################*/
 	@Transactional
-	@PostMapping("/staff/public/register")
+	@PostMapping("/staff/private/register")
 	public ResponseEntity<Staff>  registerStaff( 
 			@RequestBody @Validated RegisterStaffRequest registerStaffRequest) {
-		
+
 		// VALIDATION OF DATA
-		
-		
+
+
 		// Create the new Staff
 		Staff newStaff = new Staff();
 		String idGenerated = staffService.generateStringId();
 		newStaff.setStaffId(idGenerated);
 		newStaff.setEmail(registerStaffRequest.getEmail().trim());
 		newStaff.setUsername(registerStaffRequest.getUsername().trim());
-		
+
 		String encryptedPassword = "{bcrypt}" + EncrytedPasswordUtils.encrytePassword(registerStaffRequest.getPassword());
 		newStaff.setPassword(encryptedPassword);
-		
+
 		newStaff.setFirstName(registerStaffRequest.getFirstName().trim());
 		newStaff.setLastName(registerStaffRequest.getLastName().trim());
 		newStaff.setEnabled(false);
-		
-		
+
+
 		//newStaff.setPictureId(registerStaffRequest.getPictureId());
 		//newStaff.setAddressId(registerStaffRequest.getAddressId());
-		newStaff.setStoreId(registerStaffRequest.getStoreId());
+//		registerStaffRequest.setStoreId(registerStaffRequest.getStoreId().trim());
+//		if(registerStaffRequest.getStoreId().equals(""))
+//			registerStaffRequest.setStoreId(null);
 		
+		newStaff.setStoreId(registerStaffRequest.getStoreId());
+
 		// Save the customer on DATA BASE
 		newStaff = staffRepository.save(newStaff);
-		
-		
+
+
 		// Call the User microservice to create also a User
 		CreateUserRequest createUserRequest = new CreateUserRequest();
 		createUserRequest.setUserId(idGenerated);
 		createUserRequest.setEmail(registerStaffRequest.getEmail().trim());
 		createUserRequest.setUsername(registerStaffRequest.getUsername().trim());
 		createUserRequest.setPassword(encryptedPassword);
-		
+
 		//createUserRequest.setPictureId(registerStaffRequest.getPictureId());
 		createUserRequest.setAuthorityName("ROLE_STAFF");
 		userProxy.createUser(createUserRequest);
-		
+
 
 		return new ResponseEntity<Staff>(newStaff, HttpStatus.OK);
 	}
-	
-	@PutMapping("/staff/public/enable/{staffId}")
-	public boolean enableStaff(@PathVariable(name = "staffId") String staffId){
-		
-		Optional<Staff> staffFound = staffRepository.findById(staffId);
-		if(staffFound.isPresent()) {
-			// TODO
-			//enable the customer after a confermation mail
-			//...
-			staffFound.get().setEnabled(true);
-			staffRepository.save(staffFound.get());
-			userProxy.enableUser(staffId);
-			return true;
-		}
-		
-		
-		return false;
-	}
-	
-	
-	@PutMapping("/staff/public/disable/{staffId}")
-	public boolean disableStaff(@PathVariable(name = "staffId") String staffId){
-		
-		Optional<Staff> staffFound = staffRepository.findById(staffId);
-		if(staffFound.isPresent()) {
-			staffFound.get().setEnabled(false);
-			staffRepository.save(staffFound.get());
-			userProxy.disableUser(staffId);
-			return true;
-		}
-		
-		
-		return false;
-	}
 
-	
+
+	/*######################
+	 # GET METHODS (READ)
+	 #######################*/
+
 	// Proxy method
 	@GetMapping("/staff/public/get-by-id/{staffId}")
 	public ResponseEntity<Staff>  getOneStaff(@PathVariable(name = "staffId") String staffId) {
@@ -153,7 +129,7 @@ public class StaffController {
 
 		return new ResponseEntity<Staff>(staffFound.get(), HttpStatus.OK);
 	}
-	
+
 	// Proxy method
 	@GetMapping("/staff/public/get-all")
 	public ResponseEntity<List<Staff>>  getAllStaff(){
@@ -164,6 +140,78 @@ public class StaffController {
 
 		return new ResponseEntity<List<Staff>>(staffList, HttpStatus.OK);
 	}
+
+	@GetMapping("/staff/public/staff-exist/{staffId}")
+	public boolean staffExist(@PathVariable("staffId") String staffId) {
+
+		Optional<Staff> staffFound = staffRepository.findById(staffId);
+		if(!staffFound.isPresent()) 
+			return false;
+
+		return true;
+	}
+
+	
+
+	/*######################
+	 # PUT METHODS (UPDATE)
+	 #######################*/
+	
+	@PutMapping("/staff/public/update-storeId/{staffId}/{storeId}")
+	public ResponseEntity<Staff>  updateStoreIdOfStaff(
+			@PathVariable(name = "staffId") String staffId,
+			@PathVariable(name = "storeId") String storeId
+			){
+		
+		// Control data
+		
+		Optional<Staff> staffFound = staffRepository.findById(staffId);
+		if(!staffFound.isPresent())
+			throw new StaffNotFoundException("Staff with id '" + staffId + "' do not exist.");
+		
+		staffFound.get().setStoreId(storeId);
+		
+		staffRepository.save(staffFound.get());
+		
+		return new ResponseEntity<Staff>(staffFound.get(), HttpStatus.OK);
+	}
+
+	@PutMapping("/staff/public/enable/{staffId}")
+	public boolean enableStaff(@PathVariable(name = "staffId") String staffId){
+
+		Optional<Staff> staffFound = staffRepository.findById(staffId);
+		if(staffFound.isPresent()) {
+			// TODO
+			//enable the customer after a confermation mail
+			//...
+			staffFound.get().setEnabled(true);
+			staffRepository.save(staffFound.get());
+			userProxy.enableUser(staffId);
+			return true;
+		}
+
+
+		return false;
+	}
+
+
+	@PutMapping("/staff/public/disable/{staffId}")
+	public boolean disableStaff(@PathVariable(name = "staffId") String staffId){
+
+		Optional<Staff> staffFound = staffRepository.findById(staffId);
+		if(staffFound.isPresent()) {
+			staffFound.get().setEnabled(false);
+			staffRepository.save(staffFound.get());
+			userProxy.disableUser(staffId);
+			return true;
+		}
+
+
+		return false;
+	}
+
+
+
 
 
 }

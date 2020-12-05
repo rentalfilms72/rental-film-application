@@ -71,7 +71,7 @@ public class Admin implements Serializable {
 	
 
 	//bi-directional many-to-one association to Store
-	@NotBlank
-	@Column(name="STORE_ID")
-	private String storeId;
+//	@NotBlank
+//	@Column(name="STORE_ID")
+//	private String storeId;
 }

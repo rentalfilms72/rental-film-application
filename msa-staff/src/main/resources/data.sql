@@ -1,0 +1,1 @@
+INSERT IGNORE INTO staff_id_table(id, staff_id) VALUES(1, null);

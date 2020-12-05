@@ -11,7 +11,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
@@ -78,9 +77,9 @@ public class Staff implements Serializable {
 	
 
 	//bi-directional many-to-one association to Store
-	@NotNull
+	//@NotNull
 	@Column(name="STORE_ID")
-	private String storeId;
+	private String storeId = null;
 		
 	//bi-directional many-to-one association to Picture
 //	@Column(name = "PICTURE_ID")

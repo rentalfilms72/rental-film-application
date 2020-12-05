@@ -2,15 +2,17 @@ package com.rentalfilm.edgezuul.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-//import org.springframework.social.security.SpringSocialConfigurer;
 
+import com.rentalfilm.edgezuul.security.JwtTokenProvider;
 
 
 
@@ -18,22 +20,32 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
-
 	@Autowired
-	private UserDetailsService userDetailsService;
+    private JwtTokenProvider jwtTokenProvider;
 
-	@Autowired
-	AuthenticationSuccessHandler successHandler;
-
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
-	}
-
-	// This bean is load the user specific data when form login is used.
+//	@Autowired
+//	private UserDetailsService userDetailsService;
+//
+//	@Autowired
+//	AuthenticationSuccessHandler successHandler;
+//
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.userDetailsService(userDetailsService);
+//	}
+//
+//	// This bean is load the user specific data when form login is used.
+//	@Override
+//	public UserDetailsService userDetailsService() {
+//		return userDetailsService;
+//	}
+	
 	@Override
-	public UserDetailsService userDetailsService() {
-		return userDetailsService;
+	public void configure(WebSecurity web) throws Exception {
+		// Allow eureka client to be accessed without authentication
+		web.ignoring().antMatchers("/*/")//
+		.antMatchers("/eureka/**")//
+		.antMatchers(HttpMethod.OPTIONS, "/**"); // Request type options should be allowed.
 	}
 
 
@@ -58,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		 			"/msa-authority/authority/public/**",
 		 			"/msa-category/category/public/**",
 		 			"/msa-country/country/public/**",
-		 			"/msa-clientui/clientui/public/**",
+		 			//"/msa-clientui/clientui/public/**", /////
 		 			"/msa-customer/customer/public/**",
 		 			"/msa-film/film/public/**",
 		 			"/msa-filmactor/filmactor/public/**",
@@ -79,19 +91,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		 			"errors/**"
 		 			).permitAll();
 		
-//		http.authorizeRequests()
-//			.antMatchers("/public/**",
-//						"/clientui/**",
-//						"/test-customer"
-//						//"/**"
-//						)
-//			.permitAll();
-		
 		http.authorizeRequests()
 			// All the Url require an authentication of the user
-	        .antMatchers("/admin/private/**").hasAnyAuthority("ROLE_ADMIN")
-	        .antMatchers("/staff/private/**").hasAnyAuthority("ROLE_STAFF")
+	        .antMatchers("/admin/private/**").hasAuthority("ROLE_ADMIN")
+	        .antMatchers("/staff/private/**").hasAuthority("ROLE_STAFF")
 	        .antMatchers("/customer/private/**").hasAuthority("ROLE_CUSTOMER")
+	        
+	        .antMatchers(
+	        		"/msa-actor/actor/private/**",
+		 			"/msa-admin/admin/private/**",
+		 			"/msa-authority/authority/private/**",
+		 			"/msa-category/category/private/**",
+		 			"/msa-country/country/private/**",
+		 			//"/msa-clientui/clientui/private/**", /////
+		 			"/msa-customer/customer/private/**",
+		 			"/msa-film/film/private/**",
+		 			"/msa-filmactor/filmactor/private/**",
+		 			"/msa-filmcategory/filmcategory/private/**",
+		 			"/msa-filmfeatures/filmfeatures/private/**",
+		 			"/msa-filmrating/filmrating/private/**",
+		 			"/msa-inventory/inventory/private/**",
+		 			"/msa-language/language/private/**",
+		 			"/msa-payment/payment/private/**",
+		 			"/msa-picture/picture/private/**",
+		 			"/msa-pwdresettoken/pwdresettoken/private/**",
+		 			"/msa-rental/rental/private/**",
+		 			"/msa-specialfeatures/specialfeatures/private/**",
+		 			"/msa-staff/staff/private/**",
+		 			"/msa-store/store/private/**",
+		 			"/msa-user/user/private/**",
+		 			"/msa-userauthority/userauthority/private/**"
+	        		).hasAnyAuthority("ROLE_ADMIN", "ROLE_STAFF", "ROLE_CUSTOMER")
 
 	        .anyRequest().authenticated()
 	        

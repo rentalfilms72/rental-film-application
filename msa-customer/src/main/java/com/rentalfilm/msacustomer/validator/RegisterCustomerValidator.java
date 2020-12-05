@@ -8,6 +8,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.rentalfilm.msacustomer.payload.request.RegisterCustomerRequest;
+import com.rentalfilm.msacustomer.proxy.StoreProxy;
 import com.rentalfilm.msacustomer.proxy.UserProxy;
 
 @Component
@@ -18,6 +19,9 @@ public class RegisterCustomerValidator implements Validator {
 
     @Autowired
     private UserProxy userProxy;
+    
+    @Autowired
+    private StoreProxy storeProxy;
     
     // The classes are supported by this validator.
     @Override
@@ -54,7 +58,7 @@ public class RegisterCustomerValidator implements Validator {
 			return;
 		}
 //		UserBean userFound = new UserBean();
-		boolean emailExit = false, usernameExist=false;
+		boolean emailExit = false, usernameExist=false, storeExist=false;
 		
 		usernameExist = userProxy.usernameExist(registerCustomerRequest.getUsername());
 		if(usernameExist) {
@@ -65,6 +69,12 @@ public class RegisterCustomerValidator implements Validator {
 		emailExit = userProxy.emailExist(registerCustomerRequest.getEmail());
 		if(emailExit) {
 			errors.rejectValue("email", "", "Email is not available");
+			return;
+		}
+		
+		storeExist = storeProxy.storeExist(registerCustomerRequest.getStoreId());
+		if(!storeExist) {
+			errors.rejectValue("storeId", "", "Store is not exist");
 			return;
 		}
 			

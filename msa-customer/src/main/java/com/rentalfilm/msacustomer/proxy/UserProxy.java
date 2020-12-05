@@ -42,13 +42,13 @@ public interface UserProxy {
 	@GetMapping("/msa-user/user/public/get-all")
 	public List<UserBean> getAllUser();
 	
-	@GetMapping("/msa-user/user/get-user-by-id/public/{userId}")
+	@GetMapping("/msa-user/user/public/get-user-by-id/{userId}")
 	public UserBean getUserById(@PathVariable("userId") String userId);
 	
-	@GetMapping("/msa-user/user/get-user-by-username/public/{username}")
+	@GetMapping("/msa-user/user/public/get-user-by-username/{username}")
 	public UserBean getUserByUsername(@PathVariable("username") String username);
 	
-	@GetMapping("/msa-user/user/get-user-by-email/public/{email}")
+	@GetMapping("/msa-user/user/public/get-user-by-email/{email}")
 	public UserBean getUserByEmail(@PathVariable("email") String email);
 
 }

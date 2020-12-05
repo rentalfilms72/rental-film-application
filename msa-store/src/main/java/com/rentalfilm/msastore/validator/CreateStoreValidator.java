@@ -10,6 +10,7 @@ import org.springframework.validation.Validator;
 
 import com.rentalfilm.msastore.entity.Store;
 import com.rentalfilm.msastore.payload.request.CreateStoreRequest;
+import com.rentalfilm.msastore.proxy.StaffProxy;
 import com.rentalfilm.msastore.repository.StoreRepository;
 
 
@@ -19,6 +20,9 @@ public class CreateStoreValidator implements Validator {
 	
 	@Autowired
 	private StoreRepository storeRepository;
+	
+	@Autowired
+	private StaffProxy staffProxy;
 	
     // The classes are supported by this validator.
     @Override
@@ -40,6 +44,13 @@ public class CreateStoreValidator implements Validator {
 			return;
 		}
 		
+		boolean staffExist = false;
+		staffExist = staffProxy.staffExist(createStoreRequest.getManagerStaffId());
+		if(!staffExist) {
+			errors.rejectValue("managerStaffId", "", "Staff Manager do not exist");
+			return;
+		}
+		
 		Optional<Store> storeFound = storeRepository.findByStoreName(createStoreRequest.getStoreName());
 		if(storeFound.isPresent()) {
 			errors.rejectValue("storeName", "", "Store Name is not available");
@@ -51,6 +62,7 @@ public class CreateStoreValidator implements Validator {
 			errors.rejectValue("managerStaffId", "", "The same manager can't manage more than one Store");
 			return;
 		}
+		
 		
 	}
 

@@ -19,6 +19,9 @@ public class RegisterAdminValidator implements Validator {
     @Autowired
     private UserProxy userProxy;
     
+//    @Autowired
+//    private StoreProxy storeProxy;
+    
     // The classes are supported by this validator.
     @Override
     public boolean supports(Class<?> clazz) {
@@ -41,7 +44,7 @@ public class RegisterAdminValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "", "Password is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "", "Confirm Password is required");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "storeId", "", "Select one store. Store Id is required");
+//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "storeId", "", "Select one store. Store Id is required");
 
 		if (errors.hasErrors()) {
 			return;
@@ -55,6 +58,7 @@ public class RegisterAdminValidator implements Validator {
 		}
 //		UserBean userFound = new UserBean();
 		boolean emailExit = false, usernameExist=false;
+		//storeExist= false;
 		
 		usernameExist = userProxy.usernameExist(registerAdminRequest.getUsername());
 		if(usernameExist) {
@@ -67,6 +71,12 @@ public class RegisterAdminValidator implements Validator {
 			errors.rejectValue("email", "", "Email is not available");
 			return;
 		}
+		
+//		storeExist = storeProxy.storeExist(registerAdminRequest.getStoreId());
+//		if(!storeExist) {
+//			errors.rejectValue("storeId", "", "Store is not exist");
+//			return;
+//		}
 			
 		if(registerAdminRequest.getPassword().length() < 6)
 			 errors.rejectValue("password", "", "Invalid password, minimum length:6");
